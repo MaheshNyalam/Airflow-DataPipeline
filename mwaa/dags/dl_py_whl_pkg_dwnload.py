@@ -7,7 +7,7 @@ DAG_ID = os.path.basename(__file__).replace(".py", "")
 
 common_var_path = "/usr/local/airflow/dags/config/requirements_dl.txt"
 
-S3_BUCKET = 'aap-dl-dat-fusion-mwaa-test1-dev'
+S3_BUCKET = '************'
 S3_KEY = 'mwaa/bkup_whl/dl_plugins_whl_22062022.zip' 
 
 with DAG(dag_id=DAG_ID, schedule_interval=None, catchup=False, start_date=pendulum.today('UTC').add(days=-1)) as dag:

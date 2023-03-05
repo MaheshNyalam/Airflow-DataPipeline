@@ -1,10 +1,10 @@
-Connection Id - orc_conn
-Connection Type - Oracle
-Host - 68.70.101.174
-login - SVC_TALEND_VCDB_FUSION
-Extra - {"dsn": "68.70.101.174", "service_name": "ecopsd1.advancestores.com"}
+Connection Id - *****
+Connection Type - *****
+Host - ******
+login - ******
+Extra - {"dsn": "*****," "service_name": "******}"
 
-Connection Id - dat_sf_con_nonprod
+Connection Id - *******
 Connection Type - Snowflake
-login - AAP_TALEND_DEV_DB1_USER
-Extra - {"account": "aapnonprod", "region": "us-east-1", "warehouse": "DAT_LOAD_WH", "database": "AAP_DAT_DEV_DB", "role": "AAP_DAT_DEV_LOAD_ROLE"}
+login - *******
+Extra - {"account": "******", "region": "us-east-1", "warehouse": "*****", "database": "*****", "role": "*****"}

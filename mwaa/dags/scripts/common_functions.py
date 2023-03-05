@@ -67,7 +67,6 @@ def convert_to_standard_ts(event_time):
 
 		
 def get_ctl_table_data(env="dev",feedname=None):
-    # dwh_hook = SnowflakeHook(snowflake_conn_id="dat_sf_con_nonprod")
     sql="""SELECT * FROM AAP_DAT_{}_DB.PUBLIC.DAT_AIRFLOW_SNS_EVENT_AUDIT_TABLE WHERE LOAD_TYPE IN ('FULL_LOAD','INCR_LOAD_WITHOUT_PARTITION','INCR_LOAD_WITH_PARTITION') AND PROCESS_TRACKER_STATUS IS NULL QUALIFY ROW_NUMBER() OVER (PARTITION BY FILE_NAME ORDER BY ID DESC) = 1""".format(env)
     try:
         files_to_be_processed_df = dwh_hook.get_pandas_df(sql)
@@ -228,7 +227,7 @@ def check_status_from_PT(feedname_for_PT,s3key=None):
 
 def update_sf_table(env,file_name,current_fl_datetime):
     filename_to_update = file_name
-    # dwh_hook = SnowflakeHook(snowflake_conn_id="dat_sf_con_nonprod")
+    # 
     sql="UPDATE AAP_DAT_{}_DB.PUBLIC.DAT_AIRFLOW_SNS_EVENT_AUDIT_TABLE SET AIRFLOW_FLAG='Y', PROCESS_TRACKER_STATUS='InProcess' WHERE FILE_NAME='{}' and EVENT_TIME='{}'".format(env,filename_to_update,current_fl_datetime)
     # engine = dwh_hook.get_sqlalchemy_engine()
     with engine.connect().execution_options(autocommit=False) as connection:
@@ -246,7 +245,7 @@ def update_sf_table(env,file_name,current_fl_datetime):
 
 
 def upsert_data_audit_log_table(env="dev",feedname=None):
-    # dwh_hook = SnowflakeHook(snowflake_conn_id="dat_sf_con_nonprod")
+    # 
     sql=f"SELECT * FROM AAP_DAT_{env}_DB.LOCATION.AAP_DAT_INTERFACE_FREQ WHERE AAP_FILENAME={feedname}"
     try:
         feed_info_df = dwh_hook.get_pandas_df(sql)
@@ -326,7 +325,6 @@ def send_email_by_status(env,status,feedname,file_name,batchnum,email_alert_dl="
 
 def update_dds_load_status(env,file_status,file_name,current_fl_datetime, completed_time):
     filename_to_update = file_name
-    # dwh_hook = SnowflakeHook(snowflake_conn_id="dat_sf_con_nonprod")
     sql=f"UPDATE AAP_DAT_{env}_DB.PUBLIC.DAT_AIRFLOW_SNS_EVENT_AUDIT_TABLE SET PROCESS_TRACKER_STATUS='{file_status}', PROCESSED_DTTM='{completed_time}' WHERE FILE_NAME='{filename_to_update}' AND EVENT_TIME='{current_fl_datetime}'"
     logger.info(sql)
     # engine = dwh_hook.get_sqlalchemy_engine()

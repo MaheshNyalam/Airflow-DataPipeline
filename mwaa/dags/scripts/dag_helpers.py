@@ -18,7 +18,7 @@ dwh_hook = SnowflakeHook(snowflake_conn_id="dat_sf_con_nonprod")
 def get_feed_list_needed_for_processing(**kwargs):
     env = kwargs['env']
     batchnum = kwargs['batchnum']
-    s3_bucket = boto3.resource("s3").Bucket("aap-dl-dat-fusion-mwaa-{}".format(env))
+    s3_bucket = boto3.resource("s3").Bucket("********-{}".format(env))
     # return_value = True
     # bucket = s3.Bucket('mybucket')
     # s3_client = boto3.client("s3")
